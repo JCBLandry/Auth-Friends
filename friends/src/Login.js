@@ -58,13 +58,14 @@ const mapStateToProps = (state) => ({
 	errorMessage: state.errorMessage,
 })
 
-const mapDispatchToProps = {
-	login,
-}
+// const mapDispatchToProps = {
+// 	login,
+// }
 
-export default withRouter(
-	connect(
-		mapStateToProps,
-		mapDispatchToProps,
-	)(Login)
-)
+export default Login
+// withRouter(
+// 	connect(
+// 		mapStateToProps,
+// 		// mapDispatchToProps,
+// 	)(Login)
+// )
