@@ -1,22 +1,37 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getData } from './actions'
 
-export default function(props) {
-	const {
-		component: Component, // rename "compoinent" to "Component"
-		...rest // everything except "component"
-	} = props
+class FriendsList extends React.Component {
+    componentDidMount() {
+        this.props.getData();
+    }
 
-	// the rest variable === { exact: true, path: "/" }
-	// it excludes "component" because we use it manually
-	return (
-		<Route {...rest} render={() => {
-			// get a value saved in our browser's local storage
-			const token = localStorage.getItem('token')
-
-			return token
-				? <Component />
-				: <Redirect to="/login" />
-		}} />
-	)
+    render() {
+        return (
+            <div>
+                {this.props.friends.map(friend => {
+                    return (
+                        <div className='friends' key={friend.id}>
+                            <strong>{friend.name}</strong>
+                            <p>Age: {friend.age}</p>
+                            <p>Email: {friend.email}</p>
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
 }
+
+const mapStateToProps = state => {
+    return {
+        friends: state.friends
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    { getData }
+)(FriendsList)

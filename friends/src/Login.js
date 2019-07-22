@@ -1,71 +1,57 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { Form, Input, Button } from 'reactstrap'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { login } from '../actions'
+import { login } from './actions'
 
 class Login extends React.Component {
-	constructor() {
-		super()
-		this.state = {
-			username: '',
-			password: '',
-		}
-	}
+    state = {
+        credentials: {
+            username: "",
+            password: ""
+        }
+    }
 
-	handleChange = (evt) => {
-		evt.preventDefault()
+    handleChange = e => {
+        this.setState({
+          credentials: {
+            ...this.state.credentials,
+            [e.target.name]: e.target.value
+          }
+        })
+    }
 
-		this.setState({
-			[evt.target.name]: evt.target.value,
-		})
-	}
+    handleLogin = e => {
+        e.preventDefault();
+        this.props
+          .login(this.state.credentials)
+          .then(() => this.props.history.push("/auth"));
+    }
 
-	handleSubmit = (evt) => {
-		evt.preventDefault()
-
-		const { username, password } = this.state
-
-		this.props.login(username, password)
-			.then(() => {
-				this.props.history.push("/")
-			})
-			.catch((err) => {
-				console.error(err)
-			})
-	}
-
-	render() {
-		const { username, password } = this.state
-		const { isLoading, errorMessage } = this.props
-
-		return (
-			<form onSubmit={this.handleSubmit}>
-				{errorMessage && <p className="error">{errorMessage}</p>}
-				
-				<input type="text" name="username" placeholder="Username" value={username} onChange={this.handleChange} /><br />
-				<input type="password" name="password" placeholder="Password" value={password} onChange={this.handleChange} /><br />
-
-				{isLoading
-					? <p>Logging in...</p>
-					: <button type="submit">Login</button>}
-			</form>
-		)
-	}
+    render() {
+        return (
+            <div>
+                <Link to='/'>Return to Launcher!</Link>
+                <Form onSubmit={this.handleLogin}>
+                    <Input type='text' name='username' placeholder='Username' 
+                    value={this.state.credentials.username}
+                        onChange={this.handleChange}
+                    />
+                    <Input
+                        type='password'
+                        name='password'
+                        placeholder='Password'
+                        value={this.state.credentials.password}
+                        onChange={this.handleChange}
+                    />
+                    <Button>Click Here to Login!</Button>
+                </Form>
+            </div>
+        )
+    }
 }
 
-const mapStateToProps = (state) => ({
-	isLoading: state.isLoading,
-	errorMessage: state.errorMessage,
-})
-
-// const mapDispatchToProps = {
-// 	login,
-// }
-
-export default Login
-// withRouter(
-// 	connect(
-// 		mapStateToProps,
-// 		// mapDispatchToProps,
-// 	)(Login)
-// )
+export default connect(
+    null,
+    { login }
+)(Login)
