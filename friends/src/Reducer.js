@@ -3,6 +3,9 @@ import {
     FETCH_DATA_START,
     FETCH_DATA_SUCCESS,
     FETCH_DATA_FAILURE,
+    NEW_FRIEND,
+    NEW_FRIEND_SUCCESS,
+    NEW_FRIEND_FAILURE,
   } from './actions'
 
 const initialState = {
@@ -10,7 +13,8 @@ const initialState = {
     error: '',
     errorStatusCode: null,
     fetchingData: false,
-    isLoggingIn: false
+    isLoggingIn: false,
+    newFriend: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -42,6 +46,17 @@ const reducer = (state = initialState, action) => {
                 errorStatusCode: action.payload.status
             }
         }
+        case NEW_FRIEND:
+        return { ...state, newFriend: true };
+      case NEW_FRIEND_SUCCESS:
+        return {
+          ...state,
+          newFriend: false,
+          friends: [...state.friends, ...action.payload]
+        }
+      case NEW_FRIEND_FAILURE:
+        return { ...state, newFriend: false, error: action.payload }
+
         default:
             return state
     }

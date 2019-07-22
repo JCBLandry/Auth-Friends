@@ -1,5 +1,4 @@
 import React from 'react'
-import { Form, Input, Button } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from './actions'
@@ -32,20 +31,21 @@ class Login extends React.Component {
         return (
             <div>
                 <Link to='/'>Return to Launcher!</Link>
-                <Form onSubmit={this.handleLogin}>
-                    <Input type='text' name='username' placeholder='Username' 
+                <form onSubmit={this.handleLogin}>
+
+                    <input type='text' name='username' placeholder='Username' 
                     value={this.state.credentials.username}
                         onChange={this.handleChange}
                     />
-                    <Input
+                    <input
                         type='password'
                         name='password'
                         placeholder='Password'
                         value={this.state.credentials.password}
                         onChange={this.handleChange}
                     />
-                    <Button>Click Here to Login!</Button>
-                </Form>
+                    <button>Click Here to Login!</button>
+                </form>
             </div>
         )
     }

@@ -11,6 +11,7 @@ class FriendsList extends React.Component {
     render() {
         return (
             <div>
+                <Link to='/newfriend'>Add a New Friend!</Link>
                 {this.props.friends.map(friend => {
                     return (
                         <div className='friends' key={friend.id}>

@@ -45,7 +45,7 @@ export const addFriend = friend => dispatch => {
 
   dispatch({ type: NEW_FRIEND });
   axios
-    .post(url, friend)
+    .post('http://localhost:5000/api/friends', friend)
 
     .then(({ data }) => dispatch(
       {
@@ -53,7 +53,7 @@ export const addFriend = friend => dispatch => {
         payload: data
       }
     ))
-    
+
     .catch(({ data }) => dispatch(
       {
         type: NEW_FRIEND_FAILURE,
