@@ -36,3 +36,28 @@ export const getData = () => dispatch => {
         })
     })
 }
+
+export const NEW_FRIEND = 'NEW_FRIEND';
+export const NEW_FRIEND_SUCCESS = 'NEW_FRIEND_SUCCESS';
+export const NEW_FRIEND_FAILURE = 'NEW_FRIEND_FAILURE';
+
+export const addFriend = friend => dispatch => {
+
+  dispatch({ type: NEW_FRIEND });
+  axios
+    .post(url, friend)
+
+    .then(({ data }) => dispatch(
+      {
+        type: NEW_FRIEND_SUCCESS,
+        payload: data
+      }
+    ))
+    
+    .catch(({ data }) => dispatch(
+      {
+        type: NEW_FRIEND_FAILURE,
+        payload: data
+      }
+    ))
+}
