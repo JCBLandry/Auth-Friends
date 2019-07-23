@@ -6,6 +6,9 @@ import {
     NEW_FRIEND,
     NEW_FRIEND_SUCCESS,
     NEW_FRIEND_FAILURE,
+    DEL_FRIEND,
+    DEL_FRIEND_SUCCESS,
+    DEL_FRIEND_FAILURE,
   } from './actions'
 
 const initialState = {
@@ -57,6 +60,18 @@ const reducer = (state = initialState, action) => {
         }
       case NEW_FRIEND_FAILURE:
         return { ...state, newFriend: false, error: action.payload }
+
+        case DEL_FRIEND:
+                return { ...state, newFriend: true };
+              case DEL_FRIEND_SUCCESS:
+                return {
+                  ...state,
+                  newFriend: false,
+                  friends: [...state.friends, ...action.payload]
+                  
+                }
+              case DEL_FRIEND_FAILURE:
+                return { ...state, newFriend: false, error: action.payload }
 
         default:
             return state

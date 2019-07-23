@@ -37,9 +37,9 @@ export const getData = () => dispatch => {
     })
 }
 
-export const NEW_FRIEND = 'NEW_FRIEND';
-export const NEW_FRIEND_SUCCESS = 'NEW_FRIEND_SUCCESS';
-export const NEW_FRIEND_FAILURE = 'NEW_FRIEND_FAILURE';
+export const NEW_FRIEND = 'NEW_FRIEND'
+export const NEW_FRIEND_SUCCESS = 'NEW_FRIEND_SUCCESS'
+export const NEW_FRIEND_FAILURE = 'NEW_FRIEND_FAILURE'
 
 export const addFriend = friend => dispatch => {
 
@@ -60,6 +60,34 @@ export const addFriend = friend => dispatch => {
     .catch(({ data }) => dispatch(
       {
         type: NEW_FRIEND_FAILURE,
+        payload: data
+      }
+    ))
+}
+
+export const DEL_FRIEND = 'DEL_FRIEND'
+export const DEL_FRIEND_SUCCESS = 'DEL_FRIEND_SUCCESS'
+export const DEL_FRIEND_FAILURE = 'DEL_FRIEND_FAILURE'
+
+export const delFriend = id => dispatch => {
+
+  dispatch({ type: DEL_FRIEND });
+  axios
+    .delete('http://localhost:5000/api/friends/${id}', {
+      headers: { Authorization: localStorage.getItem('token') }
+    })
+
+    .then(({ data }) => dispatch(
+      {
+        type: DEL_FRIEND_SUCCESS,
+        payload: data
+      }
+      
+    ))
+
+    .catch(({ data }) => dispatch(
+      {
+        type: DEL_FRIEND_FAILURE,
         payload: data
       }
     ))

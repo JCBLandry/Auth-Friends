@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getData } from './actions'
+import { delFriend } from './actions'
 
 class FriendsList extends React.Component {
     componentDidMount() {
@@ -18,6 +19,8 @@ class FriendsList extends React.Component {
                             <strong>{friend.name}</strong>
                             <p>Age: {friend.age}</p>
                             <p>Email: {friend.email}</p>
+                            <p>ID: {friend.id}</p>
+                            <button onClick={this.delFriend} id='{friend.id}'>Delete Friend</button>
                         </div>
                     )
                 })}
