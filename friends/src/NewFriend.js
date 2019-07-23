@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addFriend } from './actions'
+import { withRouter } from 'react-router-dom'
 
 class NewFriend extends Component {
   state = {
@@ -17,8 +18,10 @@ class NewFriend extends Component {
     e.preventDefault();
     const { name, age, email } = this.state;
     this.props.addFriend({ name, age, email });
-    this.setState({ name: '', age: '', email: '' })
+    this.setState({ name: '', age: '', email: '' });
+    this.props.history.push("/auth");
   }
+ 
 
   render() {
     const { name, age, email } = this.state;
@@ -57,11 +60,12 @@ class NewFriend extends Component {
           />
           <br />
 
-          <button type="submit">Add Friend!</button>
+          <button to='/auth' type="submit">Add Friend!</button>
         </form>
       </div>
     );
   }
 }
 
-export default connect(null, { addFriend })(NewFriend)
+export default withRouter(
+    connect(null, { addFriend })(NewFriend))

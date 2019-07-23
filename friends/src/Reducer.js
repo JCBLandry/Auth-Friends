@@ -53,6 +53,7 @@ const reducer = (state = initialState, action) => {
           ...state,
           newFriend: false,
           friends: [...state.friends, ...action.payload]
+          
         }
       case NEW_FRIEND_FAILURE:
         return { ...state, newFriend: false, error: action.payload }

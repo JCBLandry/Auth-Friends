@@ -45,13 +45,16 @@ export const addFriend = friend => dispatch => {
 
   dispatch({ type: NEW_FRIEND });
   axios
-    .post('http://localhost:5000/api/friends', friend)
+    .post('http://localhost:5000/api/friends', friend, {
+      headers: { Authorization: localStorage.getItem('token') }
+    })
 
     .then(({ data }) => dispatch(
       {
         type: NEW_FRIEND_SUCCESS,
         payload: data
       }
+      
     ))
 
     .catch(({ data }) => dispatch(
